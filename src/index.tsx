@@ -1,6 +1,3 @@
-import * as React from 'react';
+export { default as useOLMap } from './useOLMap';
 
-// Delete me
-export const Thing = () => {
-  return <div>the snozzberries taste like snozzberries</div>;
-};
+export { default as MapContainer } from './MapContainer';
