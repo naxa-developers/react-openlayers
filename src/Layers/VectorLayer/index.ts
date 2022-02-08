@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { get } from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector as VectorSource } from 'ol/source';
@@ -10,50 +10,64 @@ interface VectorLayerProps {
   map?: mapInstanceType;
   geojson: GeoJSONType;
   zIndex?: number;
+  visibleOnMap?: boolean;
+  declutter?: boolean;
+  setStyle?: () => void;
 }
 
-export const VectorLayer = ({ map, geojson, zIndex = 1 }: VectorLayerProps) => {
-  const [vectorLayer, setVectorLayer] = useState<null | vectorLayerType>(null);
-
-  useEffect(() => {
-    return () => map && vectorLayer && map.removeLayer(vectorLayer);
-  }, [map, vectorLayer]);
-
-  useEffect(() => {
-    if (!map) return;
-
-    const vectorLyr = new OLVectorLayer({
+export const VectorLayer = ({
+  map,
+  geojson,
+  zIndex = 1,
+  visibleOnMap = true,
+  declutter = false,
+  setStyle = () => {},
+}: VectorLayerProps) => {
+  // vector layer instance
+  const vectorLayer = useMemo<vectorLayerType>(() => {
+    return new OLVectorLayer({
       source: new VectorSource({
         features: new GeoJSON().readFeatures(geojson, {
           featureProjection: get('EPSG:3857'),
         }),
       }),
-      declutter: true,
+      declutter,
     });
+  }, []);
 
-    setVectorLayer(vectorLyr);
-  }, [map, geojson]);
+  // add vector layer to map
+  useEffect(() => {
+    if (!map || !vectorLayer) return;
+    if (visibleOnMap) {
+      map.addLayer(vectorLayer);
+    } else {
+      map.removeLayer(vectorLayer);
+    }
+  }, [map, vectorLayer, visibleOnMap]);
 
-  // useEffect(() => {
-  //   if (!map || !vectorLayer) return;
-  //   if (visibleOnMap) {
-  //     map.addLayer(vectorLayer);
-  //   } else {
-  //     map.removeLayer(vectorLayer);
-  //   }
-  // }, [map, vectorLayer, visibleOnMap]);
-
+  // set zIndex
   useEffect(() => {
     if (!vectorLayer) return;
     vectorLayer.setZIndex(zIndex);
   }, [vectorLayer, zIndex]);
 
+  // set style
   useEffect(() => {
-    if (!map || !vectorLayer) return;
-    map.getView().fit(vectorLayer.getSource().getExtent(), {
-      padding: [50, 50, 50, 50],
-      duration: 900,
-    });
+    if (!vectorLayer) return;
+    vectorLayer.setStyle(setStyle);
+  }, [vectorLayer, setStyle]);
+
+  // useEffect(() => {
+  //   if (!map || !vectorLayer) return;
+  //   map.getView().fit(vectorLayer.getSource().getExtent(), {
+  //     padding: [50, 50, 50, 50],
+  //     duration: 900,
+  //   });
+  // }, [map, vectorLayer]);
+
+  // cleanup function
+  useEffect(() => {
+    return () => map && vectorLayer && map.removeLayer(vectorLayer);
   }, [map, vectorLayer]);
 
   return null;

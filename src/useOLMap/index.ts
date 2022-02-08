@@ -6,16 +6,18 @@ import { mapInstanceType } from '../types';
 const defaultProps = {
   center: [0, 0],
   zoom: 2,
+  maxZoom: 21,
 };
 
 interface useOLMapProps {
-  center?: number[];
+  center?: [number, number];
   zoom?: number;
+  maxZoom?: number;
 }
 
 const useOLMap = (props?: useOLMapProps) => {
   const settings = { ...defaultProps, ...props };
-  const { center, zoom } = settings;
+  const { center, zoom, maxZoom } = settings;
 
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<mapInstanceType>(null);
@@ -25,7 +27,7 @@ const useOLMap = (props?: useOLMapProps) => {
       view: new View({
         center,
         zoom,
-        maxZoom: 18,
+        maxZoom,
       }),
       target: mapRef.current || undefined,
     };
