@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { get } from 'ol/proj';
+import { FitOptions } from 'ol/View';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector as VectorSource } from 'ol/source';
 import OLVectorLayer from 'ol/layer/Vector';
@@ -13,6 +14,7 @@ interface VectorLayerProps {
   visibleOnMap?: boolean;
   declutter?: boolean;
   zoomToLayer?: boolean;
+  zoomOptions?: FitOptions;
   setStyle?: () => void;
 }
 
@@ -24,6 +26,7 @@ export const VectorLayer = ({
   declutter = false,
   setStyle = () => {},
   zoomToLayer = false,
+  zoomOptions = {},
 }: VectorLayerProps) => {
   // vector layer instance
   const vectorLayer = useMemo<vectorLayerType>(() => {
@@ -64,9 +67,10 @@ export const VectorLayer = ({
     if (!map || !vectorLayer || !zoomToLayer) return;
     map.getView().fit(vectorLayer.getSource().getExtent(), {
       padding: [50, 50, 50, 50],
-      duration: 900,
+      duration: 700,
+      ...zoomOptions,
     });
-  }, [map, vectorLayer, zoomToLayer]);
+  }, [map, vectorLayer, zoomToLayer, zoomOptions]);
 
   // cleanup function
   useEffect(() => {

@@ -61,6 +61,7 @@ const App = () => {
           geojson={point}
           setStyle={setLayerStyle}
           zoomToLayer={toggle}
+          zoomOptions={{ maxZoom: 2 }}
         />
       </MapContainer>
     </div>
