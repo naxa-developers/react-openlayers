@@ -12,6 +12,7 @@ interface VectorLayerProps {
   zIndex?: number;
   visibleOnMap?: boolean;
   declutter?: boolean;
+  zoomToLayer?: boolean;
   setStyle?: () => void;
 }
 
@@ -22,6 +23,7 @@ export const VectorLayer = ({
   visibleOnMap = true,
   declutter = false,
   setStyle = () => {},
+  zoomToLayer = false,
 }: VectorLayerProps) => {
   // vector layer instance
   const vectorLayer = useMemo<vectorLayerType>(() => {
@@ -57,13 +59,14 @@ export const VectorLayer = ({
     vectorLayer.setStyle(setStyle);
   }, [vectorLayer, setStyle]);
 
-  // useEffect(() => {
-  //   if (!map || !vectorLayer) return;
-  //   map.getView().fit(vectorLayer.getSource().getExtent(), {
-  //     padding: [50, 50, 50, 50],
-  //     duration: 900,
-  //   });
-  // }, [map, vectorLayer]);
+  // zoom to layer
+  useEffect(() => {
+    if (!map || !vectorLayer || !zoomToLayer) return;
+    map.getView().fit(vectorLayer.getSource().getExtent(), {
+      padding: [50, 50, 50, 50],
+      duration: 900,
+    });
+  }, [map, vectorLayer, zoomToLayer]);
 
   // cleanup function
   useEffect(() => {

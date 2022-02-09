@@ -1,15 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { FeatureCollection } from 'geojson';
 import { useOLMap, MapContainer } from '../src/';
+import LayerSwitcherControl from '../src/LayerSwitcherControl';
 import { BaseLayer, VectorLayer } from '../src/Layers';
 import { osm } from '../src/sources';
 import 'ol/ol.css';
+import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import { Style, Circle as CircleStyle, Fill } from 'ol/style';
 
 const styles: { [key: string]: React.CSSProperties } = {
   map: { width: '100vw', height: '100vh' },
 };
+
+const osmSource = osm();
 
 const point: FeatureCollection = {
   type: 'FeatureCollection',
@@ -31,6 +35,8 @@ const App = () => {
     center: [0, 0],
   });
 
+  const [toggle, setToggle] = useState(true);
+
   const setLayerStyle = useCallback(() => {
     return new Style({
       image: new CircleStyle({
@@ -44,9 +50,18 @@ const App = () => {
 
   return (
     <div>
+      <button onClick={() => setToggle(!toggle)}>zoom to</button>
+
       <MapContainer ref={mapRef} mapInstance={map} style={styles.map}>
-        <BaseLayer source={osm()} />
-        <VectorLayer geojson={point} setStyle={setLayerStyle} />
+        {/* <BaseLayer source={osmSource} /> */}
+
+        <LayerSwitcherControl />
+
+        <VectorLayer
+          geojson={point}
+          setStyle={setLayerStyle}
+          zoomToLayer={toggle}
+        />
       </MapContainer>
     </div>
   );
