@@ -1127,9 +1127,9 @@
   "version" "2.0.2"
 
 "@mapbox/mapbox-gl-style-spec@^13.20.1":
-  "integrity" "sha512-zI26XoK0UjGOvOEUUAoKlmFKHrSD8qIMCaoQBsFxNPzGIluryT32Z1m4aq7NtxEsrfE+qc2mPPXQg+iRllqbqA=="
-  "resolved" "https://registry.npmjs.org/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.23.0.tgz"
-  "version" "13.23.0"
+  "integrity" "sha512-C6wh8A/5EdsgzhL6y6yl464VCQNIxK0yjrpnvCvchcFe3sNK2RbBw/J9u3m+p8Y6S6MsGuSMt3AkGAXOKMYweQ=="
+  "resolved" "https://registry.npmjs.org/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.23.1.tgz"
+  "version" "13.23.1"
   dependencies:
     "@mapbox/jsonlint-lines-primitives" "~2.0.2"
     "@mapbox/point-geometry" "^0.1.0"
@@ -4598,10 +4598,10 @@
   dependencies:
     "object-visit" "^1.0.0"
 
-"mapbox-to-css-font@^2.4.0":
-  "integrity" "sha512-v674D0WtpxCXlA6E+sBlG1QJWdUkz/s9qAD91bJSXBGuBL5lL4tJXpoJEftecphCh2SVQCjWMS2vhylc3AIQTg=="
-  "resolved" "https://registry.npmjs.org/mapbox-to-css-font/-/mapbox-to-css-font-2.4.0.tgz"
-  "version" "2.4.0"
+"mapbox-to-css-font@^2.4.1":
+  "integrity" "sha512-QQ/iKiM43DM9+aujTL45Iz5o7gDeSFmy4LPl3HZmNcwCE++NxGazf+yFpY+wCb+YS23sDa1ghpo3zrNFOcHlow=="
+  "resolved" "https://registry.npmjs.org/mapbox-to-css-font/-/mapbox-to-css-font-2.4.1.tgz"
+  "version" "2.4.1"
 
 "merge-stream@^2.0.0":
   "integrity" "sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w=="
@@ -4926,22 +4926,22 @@
   "resolved" "https://registry.npmjs.org/ol-layerswitcher/-/ol-layerswitcher-3.8.3.tgz"
   "version" "3.8.3"
 
-"ol-mapbox-style@^6.7.0":
-  "integrity" "sha512-HD3FNFzFiBptEwiLIVna7H/WSpv/cN99xMmIErcvqv/r4XLwWS/8VKti8w6moVPV28Fg2QmitXvaG3okedMU7w=="
-  "resolved" "https://registry.npmjs.org/ol-mapbox-style/-/ol-mapbox-style-6.8.1.tgz"
-  "version" "6.8.1"
+"ol-mapbox-style@^6.8.2":
+  "integrity" "sha512-aX8aC3QHTYk9a37l6dKcC22OUkFWz01eHShbXYdXABwT9ih1MLcjR32OYCWCKasKZMEXYKyeTh9vLhOtdfx/vA=="
+  "resolved" "https://registry.npmjs.org/ol-mapbox-style/-/ol-mapbox-style-6.8.3.tgz"
+  "version" "6.8.3"
   dependencies:
     "@mapbox/mapbox-gl-style-spec" "^13.20.1"
-    "mapbox-to-css-font" "^2.4.0"
+    "mapbox-to-css-font" "^2.4.1"
     "webfont-matcher" "^1.1.0"
 
-"ol@^6.11.0", "ol@>=5.0.0":
-  "integrity" "sha512-MCMMtAIRyst4OtNxsXqp3TDi1XMlPPeD+gVmqvSh88W++yofqs7lEPKdmtEJ59xYrSBEJJbjjoCzwNgpCpxKjA=="
-  "resolved" "https://registry.npmjs.org/ol/-/ol-6.11.0.tgz"
-  "version" "6.11.0"
+"ol@^6.12.0", "ol@>=5.0.0":
+  "integrity" "sha512-HR87aV//64aiGWbgzfsyRF5zFG+1nM1keRE4SugY0vmYyG/jjoij8qh3uaFHkFNQThdAy99sgLiQwTFk6AvGgw=="
+  "resolved" "https://registry.npmjs.org/ol/-/ol-6.12.0.tgz"
+  "version" "6.12.0"
   dependencies:
     "geotiff" "^1.0.8"
-    "ol-mapbox-style" "^6.7.0"
+    "ol-mapbox-style" "^6.8.2"
     "pbf" "3.2.1"
     "rbush" "^3.0.1"
 
@@ -6533,14 +6533,10 @@
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-3.9.10.tgz"
   "version" "3.9.10"
 
-"typescript@^4.5.4":
+"typescript@^4.5.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
   "integrity" "sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.5.4.tgz"
   "version" "4.5.4"
-
-"typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
-  "integrity" "sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q=="
-  "version" "3.9.10"
 
 "unbox-primitive@^1.0.1":
   "integrity" "sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw=="

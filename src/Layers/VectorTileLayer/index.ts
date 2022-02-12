@@ -3,38 +3,38 @@ import { get } from 'ol/proj';
 import { FitOptions } from 'ol/View';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector as VectorSource } from 'ol/source';
+import MVT from 'ol/format/MVT';
+import VectorTile from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
 import OLVectorLayer from 'ol/layer/Vector';
 import { GeoJSON as GeoJSONType } from 'geojson';
-import { mapInstanceType, vectorLayerType } from '../../types';
+import { mapInstanceType, vectorTileLayerType } from '../../types';
 
-interface VectorLayerProps {
+interface VectorTileLayerProps {
   map?: mapInstanceType;
-  geojson: GeoJSONType;
+  url: string;
   zIndex?: number;
   visibleOnMap?: boolean;
   declutter?: boolean;
-  zoomToLayer?: boolean;
-  zoomOptions?: FitOptions;
   setStyle?: () => void;
 }
 
-const VectorLayer = ({
+const VectorTileLayer = ({
   map,
-  geojson,
+  url,
   zIndex = 1,
   visibleOnMap = true,
   declutter = false,
   setStyle = () => {},
-  zoomToLayer = false,
-  zoomOptions = {},
-}: VectorLayerProps) => {
+}: VectorTileLayerProps) => {
   // vector layer instance
-  const vectorLayer = useMemo<vectorLayerType>(() => {
-    return new OLVectorLayer({
-      source: new VectorSource({
-        features: new GeoJSON().readFeatures(geojson, {
-          featureProjection: get('EPSG:3857'),
-        }),
+  const vectorLayer = useMemo<vectorTileLayerType>(() => {
+    return new VectorTile({
+      source: new VectorTileSource({
+        format: new MVT(),
+        maxZoom: 19,
+        url,
+        transition: 0,
       }),
       declutter,
     });
@@ -62,15 +62,15 @@ const VectorLayer = ({
     vectorLayer.setStyle(setStyle);
   }, [vectorLayer, setStyle]);
 
-  // zoom to layer
-  useEffect(() => {
-    if (!map || !vectorLayer || !zoomToLayer) return;
-    map.getView().fit(vectorLayer.getSource().getExtent(), {
-      padding: [50, 50, 50, 50],
-      duration: 700,
-      ...zoomOptions,
-    });
-  }, [map, vectorLayer, zoomToLayer, zoomOptions]);
+  // // zoom to layer
+  // useEffect(() => {
+  //   if (!map || !vectorLayer || !zoomToLayer) return;
+  //   map.getView().fit(vectorLayer.getSource().getExtent(), {
+  //     padding: [50, 50, 50, 50],
+  //     duration: 700,
+  //     ...zoomOptions,
+  //   });
+  // }, [map, vectorLayer, zoomToLayer, zoomOptions]);
 
   // cleanup function
   useEffect(() => {
@@ -80,4 +80,4 @@ const VectorLayer = ({
   return null;
 };
 
-export default VectorLayer;
+export default VectorTileLayer;
