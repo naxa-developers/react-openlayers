@@ -7,9 +7,14 @@ import { VectorLayer, VectorTileLayer } from '../src/Layers';
 import 'ol/ol.css';
 import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import { Style, Circle as CircleStyle, Fill, Stroke } from 'ol/style';
+import {
+  topoMap,
+  watercolor,
+  osm,
+} from '../src/LayerSwitcherControl/DefaultLayers';
 
 const styles: { [key: string]: React.CSSProperties } = {
-  map: { width: '90vw', height: '90vh' },
+  map: { width: '99vw', height: '97vh' },
 };
 
 const point: FeatureCollection = {
@@ -76,7 +81,7 @@ const App = () => {
   return (
     <div>
       <MapContainer ref={mapRef} mapInstance={map} style={styles.map}>
-        <LayerSwitcherControl />
+        <LayerSwitcherControl layers={[topoMap(), osm, watercolor]} />
 
         <VectorLayer
           geojson={polygon}
