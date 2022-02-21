@@ -35,9 +35,11 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-openlayers",
-  "author": "royallsilwallz",
+  "name": "@naxa/react-openlayers",
   "module": "dist/react-openlayers.esm.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "size-limit": [
     {
       "path": "dist/react-openlayers.cjs.production.min.js",
